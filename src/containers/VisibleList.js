@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import AccountsPropertiesList from '../components/AccountsPropertiesList'
 import * as actions from '../actions'
+import './visibleList.scss'
 
 const getVisibleList = (accounts, searchText) => {	
 	console.log("getVisibleList accounts=", accounts);
