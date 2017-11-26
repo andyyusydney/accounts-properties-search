@@ -26,7 +26,6 @@ export const clearSearch = () => {
 }
 
 export const fetchDataSuccess = data => {
-	console.log("data=", data);
 	return {
 		type: 'FETCH_DATA_SUCCESS',
 		data: data
@@ -35,15 +34,15 @@ export const fetchDataSuccess = data => {
 
 export const accountsFetchData = () => {
     return (dispatch) => {
-        //dispatch(itemsIsLoading(true));
+        //dispatch(itemsIsLoading(true)); // TODO
 
-        fetch('https://my-json-server.typicode.com/andyyusydney/accounts-properties-search/accounts')
+        fetch('https://my-json-server.typicode.com/andyyusydney/accounts-properties-search/accounts') // JSON API to get the data
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
 
-                //dispatch(itemsIsLoading(false));
+                //dispatch(itemsIsLoading(false)); // TODO
 
                 return response;
             })

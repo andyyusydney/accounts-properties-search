@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 
 const List = ({ itemsArr, currAccountName, selectedItemId, onClick }) => {
-	console.log("itemsArr=", itemsArr);
 	
 	return (
 	<ul>

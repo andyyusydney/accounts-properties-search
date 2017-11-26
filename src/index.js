@@ -7,7 +7,6 @@ import rootReducer from './reducers'
 import App from './components/App'
 import './index.scss';
 
-//ReactDOM.render(<App />, document.getElementById('container'));
 let store = createStore(rootReducer, applyMiddleware(thunk))
 
 render(
