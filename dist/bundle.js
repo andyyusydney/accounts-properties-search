@@ -3304,7 +3304,6 @@ var clearSearch = exports.clearSearch = function clearSearch() {
 };
 
 var fetchDataSuccess = exports.fetchDataSuccess = function fetchDataSuccess(data) {
-	console.log("data=", data);
 	return {
 		type: 'FETCH_DATA_SUCCESS',
 		data: data
@@ -3313,14 +3312,15 @@ var fetchDataSuccess = exports.fetchDataSuccess = function fetchDataSuccess(data
 
 var accountsFetchData = exports.accountsFetchData = function accountsFetchData() {
 	return function (dispatch) {
-		//dispatch(itemsIsLoading(true));
+		//dispatch(itemsIsLoading(true)); // TODO
 
-		fetch('https://my-json-server.typicode.com/andyyusydney/accounts-properties-search/accounts').then(function (response) {
+		fetch('https://my-json-server.typicode.com/andyyusydney/accounts-properties-search/accounts') // JSON API to get the data
+		.then(function (response) {
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
 
-			//dispatch(itemsIsLoading(false));
+			//dispatch(itemsIsLoading(false)); // TODO
 
 			return response;
 		}).then(function (response) {
@@ -3367,7 +3367,6 @@ __webpack_require__(90);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//ReactDOM.render(<App />, document.getElementById('container'));
 var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 
 (0, _reactDom.render)(_react2.default.createElement(
@@ -23607,10 +23606,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getVisibleList = function getVisibleList(accounts, searchText) {
-	console.log("getVisibleList accounts=", accounts);
-
-	console.log("getVisibleList searchText=", searchText);
-
 	var filteredAccounts = accounts // search for account with matched properties' name
 	.filter(function (acc) {
 		return acc.Properties.some(function (property) {
@@ -23618,16 +23613,12 @@ var getVisibleList = function getVisibleList(accounts, searchText) {
 		});
 	}).map(function (acc) {
 		var newAcc = Object.assign({}, acc); // copies the filtered account
-		console.log("getVisibleList newAcc=", newAcc);
 		newAcc.Properties = newAcc.Properties.filter(function (property) {
 			return property.Name.includes(searchText);
 		});
-		console.log("newAcc=", newAcc);
 
 		return newAcc;
 	});
-
-	console.log("getVisibleList filteredAccounts=", filteredAccounts);
 
 	if (filteredAccounts.length < 1) {
 		// search for matched accountName
@@ -23641,13 +23632,6 @@ var getVisibleList = function getVisibleList(accounts, searchText) {
 
 var mapStateToProps = function mapStateToProps(state) {
 	var filteredAccounts = getVisibleList(state.accounts, state.search);
-	console.log('filteredAccounts=', filteredAccounts);
-
-	/*
- if (filteredAccounts.length > 0) {
- 	dispatch(actions.selectAccount(filteredAccounts[0].AccountId));	
- }
- */
 
 	return {
 		accounts: filteredAccounts,
@@ -23659,11 +23643,9 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	return {
 		onAccountClick: function onAccountClick(id) {
-			console.log("onAccountClick id =", id);
 			dispatch(actions.selectAccount(id));
 		},
 		onPropertyClick: function onPropertyClick(id, currAccountName, name) {
-			console.log("onPropertyClick id =", id);
 			alert('You have clicked ' + currAccountName + ' - ' + name);
 			dispatch(actions.selectProperty(id));
 		},
@@ -23727,7 +23709,7 @@ var AccountsPropertiesList = function (_React$Component) {
 
 			var currProperties = [];
 			var currAccountName = '';
-			console.log("this.props.selectedAccountId=", this.props.selectedAccountId);
+
 			if (this.props.accounts.length > 0) {
 				if (this.props.selectedAccountId) {
 					var currAccounts = this.props.accounts.filter(function (acc) {
@@ -23735,9 +23717,11 @@ var AccountsPropertiesList = function (_React$Component) {
 					});
 
 					if (currAccounts.length > 0) {
+						// found selected account
 						currProperties = currAccounts[0].Properties;
 						currAccountName = currAccounts[0].AccountName;
 					} else {
+						// Not found, set the first item as selected
 						currProperties = this.props.accounts[0].Properties;
 						currAccountName = this.props.accounts[0].AccountName;
 					}
@@ -23746,39 +23730,39 @@ var AccountsPropertiesList = function (_React$Component) {
 
 			return this.props.accounts.length > 0 ? _react2.default.createElement(
 				'table',
-				{ 'class': 'content' },
+				{ className: 'content' },
 				_react2.default.createElement(
 					'thead',
-					{ 'class': 'content__header' },
+					{ className: 'content__header' },
 					_react2.default.createElement(
 						'tr',
-						{ 'class': 'content__header-row' },
+						{ className: 'content__header-row' },
 						_react2.default.createElement(
 							'th',
-							{ 'class': 'content__header-item' },
+							{ className: 'content__header-item' },
 							'Accounts'
 						),
 						_react2.default.createElement(
 							'th',
-							{ 'class': 'content__header-item' },
+							{ className: 'content__header-item' },
 							'Properties'
 						)
 					)
 				),
 				_react2.default.createElement(
 					'tbody',
-					{ 'class': 'content__body' },
+					{ className: 'content__body' },
 					_react2.default.createElement(
 						'tr',
-						{ 'class': 'content__body-row' },
+						{ className: 'content__body-row' },
 						_react2.default.createElement(
 							'td',
-							{ 'class': 'content__body-item' },
+							{ className: 'content__body-item' },
 							_react2.default.createElement(_List2.default, { itemsArr: this.props.accounts, currAccountName: currAccountName, selectedItemId: this.props.selectedAccountId, onClick: this.props.onAccountClick })
 						),
 						_react2.default.createElement(
 							'td',
-							{ 'class': 'content__body-item' },
+							{ className: 'content__body-item' },
 							_react2.default.createElement(_List2.default, { itemsArr: currProperties, currAccountName: currAccountName, selectedItemId: this.props.selectedPropertyId, onClick: this.props.onPropertyClick })
 						)
 					)
@@ -23829,7 +23813,6 @@ var List = function List(_ref) {
 	    selectedItemId = _ref.selectedItemId,
 	    onClick = _ref.onClick;
 
-	console.log("itemsArr=", itemsArr);
 
 	return _react2.default.createElement(
 		'ul',
