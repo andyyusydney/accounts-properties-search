@@ -1,5 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers'
+import App from './components/App'
 
-ReactDOM.render(<div>Accounts Properties Search</div>, document.getElementById('container')
-);
+//ReactDOM.render(<App />, document.getElementById('container'));
+let store = createStore(rootReducer, applyMiddleware(thunk))
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('container')
+)
